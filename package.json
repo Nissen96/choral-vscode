@@ -1,0 +1,46 @@
+{
+    "name": "choral-vscode",
+    "displayName": "Choral",
+    "description": "Choral Syntax Highlighting",
+    "version": "1.0.0",
+    "publisher": "Nissen96",
+    "icon": "img/icon.png",
+    "license": "GPL-3.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Nissen96/choral-vscode.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Nissen96/choral-vscode/issues"
+    },
+    "engines": {
+        "vscode": "*"
+    },
+    "homepage": "https://github.com/Nissen96/choral-vscode",
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "ch",
+                "aliases": [
+                    "Choral",
+                    "choral",
+                    "ch"
+                ],
+                "extensions": [
+                    ".ch"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "ch",
+                "scopeName": "source.choral",
+                "path": "./syntaxes/ch.tmLanguage.json"
+            }
+        ]
+    }
+}
