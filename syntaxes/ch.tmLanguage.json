@@ -96,9 +96,6 @@
 		},
 		{
 			"include": "#code"
-		},
-		{
-			"include": "#module"
 		}
 	],
 	"repository": {
@@ -865,48 +862,6 @@
 				},
 				{
 					"include": "#comments"
-				}
-			]
-		},
-		"module": {
-			"begin": "((open)\\s)?(module)\\s+(\\w+)",
-			"end": "}",
-			"beginCaptures": {
-				"1": {
-					"name": "storage.modifier.choral"
-				},
-				"3": {
-					"name": "storage.modifier.choral"
-				},
-				"4": {
-					"name": "entity.name.type.module.choral"
-				}
-			},
-			"endCaptures": {
-				"0": {
-					"name": "punctuation.section.module.end.bracket.curly.choral"
-				}
-			},
-			"name": "meta.module.choral",
-			"patterns": [
-				{
-					"begin": "{",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.section.module.begin.bracket.curly.choral"
-						}
-					},
-					"end": "(?=})",
-					"contentName": "meta.module.body.choral",
-					"patterns": [
-						{
-							"include": "#comments"
-						},
-						{
-							"match": "\\b(requires|transitive|exports|opens|to|uses|provides|with)\\b",
-							"name": "keyword.module.choral"
-						}
-					]
 				}
 			]
 		},
