@@ -37,7 +37,7 @@
 					"name": "invalid.deprecated.package_name_not_lowercase.choral"
 				},
 				{
-					"match": "(?x)\\b(?<!\\$)\n(abstract|assert|boolean|break|byte|case|catch|char|class|\nconst|continue|default|do|double|else|enum|extends|final|\nfinally|float|for|goto|if|implements|import|instanceof|int|\ninterface|long|native|new|non-sealed|package|permits|private|protected|public|\nreturn|sealed|short|static|strictfp|super|switch|syncronized|this|\nthrow|throws|transient|try|void|volatile|while|yield|\ntrue|false|null)\\b",
+					"match": "(?x)\\b(?<!\\$)\n(abstract|boolean|byte|case|catch|char|class|default|double|else|enum|extends|final|float|if|implements|import|int|\ninterface|long|new|package|private|protected|public|\nreturn|short|static|super|switch|this|try|void|\ntrue|false|null)\\b",
 					"name": "invalid.illegal.character_not_allowed_here.choral"
 				},
 				{
@@ -47,7 +47,7 @@
 			]
 		},
 		{
-			"begin": "\\b(import)\\b\\s*\\b(static)?\\b\\s",
+			"begin": "\\b(import)\\b\\s",
 			"beginCaptures": {
 				"1": {
 					"name": "keyword.other.import.choral"
@@ -81,7 +81,7 @@
 					"name": "invalid.illegal.character_not_allowed_here.choral"
 				},
 				{
-					"match": "(?x)\\b(?<!\\$)\n(abstract|assert|boolean|break|byte|case|catch|char|class|\nconst|continue|default|do|double|else|enum|extends|final|\nfinally|float|for|goto|if|implements|import|instanceof|int|\ninterface|long|native|new|non-sealed|package|permits|private|protected|public|\nreturn|sealed|short|static|strictfp|super|switch|syncronized|this|\nthrow|throws|transient|try|void|volatile|while|yield|\ntrue|false|null)\\b",
+					"match": "(?x)\\b(?<!\\$)\n(abstract|boolean|byte|case|catch|char|class|default|double|else|enum|extends|final|float|if|implements|import|int|\ninterface|long|new|package|private|protected|public|\nreturn|short|static|super|switch|this|try|void|\ntrue|false|null)\\b",
 					"name": "invalid.illegal.character_not_allowed_here.choral"
 				},
 				{
@@ -95,9 +95,6 @@
 			]
 		},
 		{
-			"include": "#comments-javadoc"
-		},
-		{
 			"include": "#code"
 		},
 		{
@@ -107,9 +104,6 @@
 	"repository": {
 		"all-types": {
 			"patterns": [
-				{
-					"include": "#primitive-arrays"
-				},
 				{
 					"include": "#primitive-types"
 				},
@@ -180,7 +174,7 @@
 				}
 			]
 		},
-		"anonymous-block-and-instance-initializer": {
+		"block": {
 			"begin": "{",
 			"beginCaptures": {
 				"0": {
@@ -199,14 +193,14 @@
 				}
 			]
 		},
-		"anonymous-classes-and-new": {
+		"new": {
 			"begin": "\\bnew\\b",
 			"beginCaptures": {
 				"0": {
 					"name": "keyword.control.new.choral"
 				}
 			},
-			"end": "(?=;|\\)|\\]|\\.|,|\\?|:|}|\\+|\\-|\\*|\\/(?!\\/|\\*)|%|!|&|\\||\\^|=)",
+			"end": "(?=;|\\)|\\.|,|\\?|:|}|\\+|\\-|\\*|\\/(?!\\/|\\*)|%|!|&|\\||\\^|=)",
 			"patterns": [
 				{
 					"include": "#comments"
@@ -218,88 +212,7 @@
 					"include": "#all-types"
 				},
 				{
-					"begin": "(?<=\\))",
-					"end": "(?=;|\\)|\\]|\\.|,|\\?|:|}|\\+|\\-|\\*|\\/(?!\\/|\\*)|%|!|&|\\||\\^|=)",
-					"patterns": [
-						{
-							"include": "#comments"
-						},
-						{
-							"begin": "{",
-							"beginCaptures": {
-								"0": {
-									"name": "punctuation.section.inner-class.begin.bracket.curly.choral"
-								}
-							},
-							"end": "}",
-							"endCaptures": {
-								"0": {
-									"name": "punctuation.section.inner-class.end.bracket.curly.choral"
-								}
-							},
-							"name": "meta.inner-class.choral",
-							"patterns": [
-								{
-									"include": "#class-body"
-								}
-							]
-						}
-					]
-				},
-				{
-					"begin": "(?<=\\])",
-					"end": "(?=;|\\)|\\]|\\.|,|\\?|:|}|\\+|\\-|\\*|\\/(?!\\/|\\*)|%|!|&|\\||\\^|=)",
-					"patterns": [
-						{
-							"include": "#comments"
-						},
-						{
-							"begin": "{",
-							"beginCaptures": {
-								"0": {
-									"name": "punctuation.section.array-initializer.begin.bracket.curly.choral"
-								}
-							},
-							"end": "}",
-							"endCaptures": {
-								"0": {
-									"name": "punctuation.section.array-initializer.end.bracket.curly.choral"
-								}
-							},
-							"name": "meta.array-initializer.choral",
-							"patterns": [
-								{
-									"include": "#code"
-								}
-							]
-						}
-					]
-				},
-				{
 					"include": "#parens"
-				}
-			]
-		},
-		"assertions": {
-			"patterns": [
-				{
-					"begin": "\\b(assert)\\s",
-					"beginCaptures": {
-						"1": {
-							"name": "keyword.control.assert.choral"
-						}
-					},
-					"end": "$",
-					"name": "meta.declaration.assertion.choral",
-					"patterns": [
-						{
-							"match": ":",
-							"name": "keyword.operator.assert.expression-separator.choral"
-						},
-						{
-							"include": "#code"
-						}
-					]
 				}
 			]
 		},
@@ -341,7 +254,7 @@
 							"name": "storage.modifier.extends.choral"
 						}
 					},
-					"end": "(?={|implements|permits)",
+					"end": "(?={|implements)",
 					"name": "meta.definition.class.inherited.classes.choral",
 					"patterns": [
 						{
@@ -359,26 +272,8 @@
 							"name": "storage.modifier.implements.choral"
 						}
 					},
-					"end": "(?=\\s*extends|permits|\\{)",
+					"end": "(?=\\s*extends|\\{)",
 					"name": "meta.definition.class.implemented.interfaces.choral",
-					"patterns": [
-						{
-							"include": "#object-types-inherited"
-						},
-						{
-							"include": "#comments"
-						}
-					]
-				},
-				{
-					"begin": "(permits)\\s",
-					"beginCaptures": {
-						"1": {
-							"name": "storage.modifier.permits.choral"
-						}
-					},
-					"end": "(?=\\s*extends|implements|\\{)",
-					"name": "meta.definition.class.permits.classes.choral",
 					"patterns": [
 						{
 							"include": "#object-types-inherited"
@@ -408,9 +303,6 @@
 		"class-body": {
 			"patterns": [
 				{
-					"include": "#comments-javadoc"
-				},
-				{
 					"include": "#comments"
 				},
 				{
@@ -421,9 +313,6 @@
 				},
 				{
 					"include": "#generics"
-				},
-				{
-					"include": "#static-initializer"
 				},
 				{
 					"include": "#class-fields-and-methods"
@@ -473,16 +362,10 @@
 					"include": "#class"
 				},
 				{
-					"include": "#record"
+					"include": "#block"
 				},
 				{
-					"include": "#anonymous-block-and-instance-initializer"
-				},
-				{
-					"include": "#try-catch-finally"
-				},
-				{
-					"include": "#assertions"
+					"include": "#try-catch"
 				},
 				{
 					"include": "#parens"
@@ -494,10 +377,7 @@
 					"include": "#numbers"
 				},
 				{
-					"include": "#anonymous-classes-and-new"
-				},
-				{
-					"include": "#lambda-expression"
+					"include": "#new"
 				},
 				{
 					"include": "#keywords"
@@ -513,9 +393,6 @@
 				},
 				{
 					"include": "#variables"
-				},
-				{
-					"include": "#variables-local"
 				},
 				{
 					"include": "#objects"
@@ -589,67 +466,6 @@
 							},
 							"end": "\\n",
 							"name": "comment.line.double-slash.choral"
-						}
-					]
-				}
-			]
-		},
-		"comments-javadoc": {
-			"patterns": [
-				{
-					"begin": "^\\s*(/\\*\\*)(?!/)",
-					"beginCaptures": {
-						"1": {
-							"name": "punctuation.definition.comment.choral"
-						}
-					},
-					"end": "\\*/",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.comment.choral"
-						}
-					},
-					"name": "comment.block.choraldoc.choral",
-					"patterns": [
-						{
-							"match": "@(author|deprecated|return|see|serial|since|version)\\b",
-							"name": "keyword.other.documentation.choraldoc.choral"
-						},
-						{
-							"match": "(@param)\\s+(\\S+)",
-							"captures": {
-								"1": {
-									"name": "keyword.other.documentation.choraldoc.choral"
-								},
-								"2": {
-									"name": "variable.parameter.choral"
-								}
-							}
-						},
-						{
-							"match": "(@(?:exception|throws))\\s+(\\S+)",
-							"captures": {
-								"1": {
-									"name": "keyword.other.documentation.choraldoc.choral"
-								},
-								"2": {
-									"name": "entity.name.type.class.choral"
-								}
-							}
-						},
-						{
-							"match": "{(@link)\\s+(\\S+)?#([\\w$]+\\s*\\([^\\(\\)]*\\)).*?}",
-							"captures": {
-								"1": {
-									"name": "keyword.other.documentation.choraldoc.choral"
-								},
-								"2": {
-									"name": "entity.name.type.class.choral"
-								},
-								"3": {
-									"name": "variable.parameter.choral"
-								}
-							}
 						}
 					]
 				}
@@ -746,9 +562,6 @@
 							"end": "(?=;|})",
 							"patterns": [
 								{
-									"include": "#comments-javadoc"
-								},
-								{
 									"include": "#comments"
 								},
 								{
@@ -765,9 +578,6 @@
 										}
 									},
 									"patterns": [
-										{
-											"include": "#comments-javadoc"
-										},
 										{
 											"include": "#comments"
 										},
@@ -870,15 +680,8 @@
 					}
 				},
 				{
-					"include": "#primitive-arrays"
-				},
-				{
 					"match": "[a-zA-Z$_][a-zA-Z0-9$_]*",
 					"name": "storage.type.generic.choral"
-				},
-				{
-					"match": "\\?",
-					"name": "storage.type.generic.wildcard.choral"
 				},
 				{
 					"match": "&",
@@ -906,31 +709,15 @@
 		"keywords": {
 			"patterns": [
 				{
-					"match": "\\bthrow\\b",
-					"name": "keyword.control.throw.choral"
-				},
-				{
-					"match": "\\?|:",
-					"name": "keyword.control.ternary.choral"
-				},
-				{
-					"match": "\\b(return|yield|break|case|continue|default|do|while|for|switch|if|else)\\b",
+					"match": "\\b(return|case|default|switch|if|else)\\b",
 					"name": "keyword.control.choral"
 				},
 				{
-					"match": "\\b(instanceof)\\b",
-					"name": "keyword.operator.instanceof.choral"
-				},
-				{
-					"match": "(<<|>>>?|~|\\^)",
-					"name": "keyword.operator.bitwise.choral"
-				},
-				{
-					"match": "((&|\\^|\\||<<|>>>?)=)",
+					"match": "((&|\\|)=)",
 					"name": "keyword.operator.assignment.bitwise.choral"
 				},
 				{
-					"match": "(===?|!=|<=|>=|<>|<|>)",
+					"match": "(==|!=|<=|>=|<|>)",
 					"name": "keyword.operator.comparison.choral"
 				},
 				{
@@ -956,23 +743,11 @@
 				{
 					"match": "(\\||&)",
 					"name": "keyword.operator.bitwise.choral"
-				},
-				{
-					"match": "\\b(const|goto)\\b",
-					"name": "keyword.reserved.choral"
-				}
-			]
-		},
-		"lambda-expression": {
-			"patterns": [
-				{
-					"match": "->",
-					"name": "storage.type.function.arrow.choral"
 				}
 			]
 		},
 		"member-variables": {
-			"begin": "(?=private|protected|public|native|synchronized|abstract|threadsafe|transient|static|final)",
+			"begin": "(?=private|protected|public|abstract|static|final)",
 			"end": "(?=\\=|;)",
 			"patterns": [
 				{
@@ -980,9 +755,6 @@
 				},
 				{
 					"include": "#variables"
-				},
-				{
-					"include": "#primitive-arrays"
 				},
 				{
 					"include": "#object-types"
@@ -1077,9 +849,6 @@
 					]
 				},
 				{
-					"include": "#throws"
-				},
-				{
 					"begin": "{",
 					"beginCaptures": {
 						"0": {
@@ -1134,9 +903,6 @@
 							"include": "#comments"
 						},
 						{
-							"include": "#comments-javadoc"
-						},
-						{
 							"match": "\\b(requires|transitive|exports|opens|to|uses|provides|with)\\b",
 							"name": "keyword.module.choral"
 						}
@@ -1168,35 +934,6 @@
 			"patterns": [
 				{
 					"include": "#generics"
-				},
-				{
-					"begin": "\\b((?:[A-Za-z_]\\w*\\s*\\.\\s*)*)([A-Z_]\\w*)\\s*(?=\\[)",
-					"beginCaptures": {
-						"1": {
-							"patterns": [
-								{
-									"match": "[A-Za-z_]\\w*",
-									"name": "storage.type.choral"
-								},
-								{
-									"match": "\\.",
-									"name": "punctuation.separator.period.choral"
-								}
-							]
-						},
-						"2": {
-							"name": "storage.type.object.array.choral"
-						}
-					},
-					"end": "(?!\\s*\\[)",
-					"patterns": [
-						{
-							"include": "#comments"
-						},
-						{
-							"include": "#parens"
-						}
-					]
 				},
 				{
 					"match": "\\b((?:[A-Za-z_]\\w*\\s*\\.\\s*)*[A-Z_]\\w*)\\s*(?=<)",
@@ -1309,25 +1046,6 @@
 					]
 				},
 				{
-					"begin": "\\[",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.bracket.square.choral"
-						}
-					},
-					"end": "\\]",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.bracket.square.choral"
-						}
-					},
-					"patterns": [
-						{
-							"include": "#code"
-						}
-					]
-				},
-				{
 					"begin": "{",
 					"beginCaptures": {
 						"0": {
@@ -1343,27 +1061,6 @@
 					"patterns": [
 						{
 							"include": "#code"
-						}
-					]
-				}
-			]
-		},
-		"primitive-arrays": {
-			"patterns": [
-				{
-					"begin": "\\b(void|boolean|byte|char|short|int|float|long|double)\\b\\s*(?=\\[)",
-					"beginCaptures": {
-						"1": {
-							"name": "storage.type.primitive.array.choral"
-						}
-					},
-					"end": "(?!\\s*\\[)",
-					"patterns": [
-						{
-							"include": "#comments"
-						},
-						{
-							"include": "#parens"
 						}
 					]
 				}
@@ -1410,160 +1107,8 @@
 				}
 			]
 		},
-		"record": {
-			"begin": "(?=\\w?[\\w\\s]*\\b(?:record)\\s+[\\w$]+)",
-			"end": "}",
-			"endCaptures": {
-				"0": {
-					"name": "punctuation.section.class.end.bracket.curly.choral"
-				}
-			},
-			"name": "meta.record.choral",
-			"patterns": [
-				{
-					"include": "#storage-modifiers"
-				},
-				{
-					"include": "#generics"
-				},
-				{
-					"include": "#comments"
-				},
-				{
-					"begin": "(record)\\s+([\\w$]+)(<[\\w$]+>)?(\\()",
-					"beginCaptures": {
-						"1": {
-							"name": "storage.modifier.choral"
-						},
-						"2": {
-							"name": "entity.name.type.record.choral"
-						},
-						"3": {
-							"patterns": [
-								{
-									"include": "#generics"
-								}
-							]
-						},
-						"4": {
-							"name": "punctuation.definition.parameters.begin.bracket.round.choral"
-						}
-					},
-					"end": "\\)",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.parameters.end.bracket.round.choral"
-						}
-					},
-					"name": "meta.record.identifier.choral",
-					"patterns": [
-						{
-							"include": "#code"
-						}
-					]
-				},
-				{
-					"begin": "(implements)\\s",
-					"beginCaptures": {
-						"1": {
-							"name": "storage.modifier.implements.choral"
-						}
-					},
-					"end": "(?=\\s*\\{)",
-					"name": "meta.definition.class.implemented.interfaces.choral",
-					"patterns": [
-						{
-							"include": "#object-types-inherited"
-						},
-						{
-							"include": "#comments"
-						}
-					]
-				},
-				{
-					"include": "#record-body"
-				}
-			]
-		},
-		"record-body": {
-			"begin": "{",
-			"beginCaptures": {
-				"0": {
-					"name": "punctuation.section.class.begin.bracket.curly.choral"
-				}
-			},
-			"end": "(?=})",
-			"name": "meta.record.body.choral",
-			"patterns": [
-				{
-					"include": "#record-constructor"
-				},
-				{
-					"include": "#class-body"
-				}
-			]
-		},
-		"record-constructor": {
-			"begin": "(?!new)(?=[\\w<].*\\s+)(?=([^\\(=/]|/(?!/))+(?={))",
-			"end": "(})|(?=;)",
-			"endCaptures": {
-				"1": {
-					"name": "punctuation.section.method.end.bracket.curly.choral"
-				}
-			},
-			"name": "meta.method.choral",
-			"patterns": [
-				{
-					"include": "#storage-modifiers"
-				},
-				{
-					"begin": "(\\w+)",
-					"beginCaptures": {
-						"1": {
-							"name": "entity.name.function.choral"
-						}
-					},
-					"end": "(?=\\s*{)",
-					"name": "meta.method.identifier.choral",
-					"patterns": [
-						{
-							"include": "#comments"
-						}
-					]
-				},
-				{
-					"include": "#comments"
-				},
-				{
-					"begin": "{",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.section.method.begin.bracket.curly.choral"
-						}
-					},
-					"end": "(?=})",
-					"contentName": "meta.method.body.choral",
-					"patterns": [
-						{
-							"include": "#code"
-						}
-					]
-				}
-			]
-		},
-		"static-initializer": {
-			"patterns": [
-				{
-					"include": "#anonymous-block-and-instance-initializer"
-				},
-				{
-					"match": "static",
-					"name": "storage.modifier.choral"
-				}
-			]
-		},
 		"storage-modifiers": {
-			"match": "\\b(public|private|protected|static|final|native|synchronized|abstract|threadsafe|transient|volatile|default|strictfp|sealed|non-sealed)\\b",
+			"match": "\\b(public|private|protected|static|final|abstract|default)\\b",
 			"name": "storage.modifier.choral"
 		},
 		"strings": {
@@ -1612,27 +1157,7 @@
 				}
 			]
 		},
-		"throws": {
-			"begin": "throws",
-			"beginCaptures": {
-				"0": {
-					"name": "storage.modifier.choral"
-				}
-			},
-			"end": "(?={|;)",
-			"name": "meta.throwables.choral",
-			"patterns": [
-				{
-					"match": ",",
-					"name": "punctuation.separator.delimiter.choral"
-				},
-				{
-					"match": "[a-zA-Z$_][\\.a-zA-Z0-9$_]*",
-					"name": "storage.type.choral"
-				}
-			]
-		},
-		"try-catch-finally": {
+		"try-catch": {
 			"patterns": [
 				{
 					"begin": "\\btry\\b",
@@ -1770,48 +1295,16 @@
 							]
 						}
 					]
-				},
-				{
-					"begin": "\\bfinally\\b",
-					"beginCaptures": {
-						"0": {
-							"name": "keyword.control.finally.choral"
-						}
-					},
-					"end": "}",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.section.finally.end.bracket.curly.choral"
-						}
-					},
-					"name": "meta.finally.choral",
-					"patterns": [
-						{
-							"begin": "{",
-							"beginCaptures": {
-								"0": {
-									"name": "punctuation.section.finally.begin.bracket.curly.choral"
-								}
-							},
-							"end": "(?=})",
-							"contentName": "meta.finally.body.choral",
-							"patterns": [
-								{
-									"include": "#code"
-								}
-							]
-						}
-					]
 				}
 			]
 		},
 		"variables": {
-			"begin": "(?x)\n(?=\n  \\b\n  (\n    (void|boolean|byte|char|short|int|float|long|double)\n    |\n    (?>(\\w+\\.)*[A-Z_]+\\w*) # e.g. `javax.ws.rs.Response`, or `String`\n  )\n  \\b\n  \\s*\n  (\n    <[\\w<>,\\.?\\s\\[\\]]*> # e.g. `HashMap<Integer, String>`, or `List<java.lang.String>`\n  )?\n  \\s*\n  (\n    (\\[\\])* # int[][]\n  )?\n  \\s+\n  [A-Za-z_$][\\w$]* # At least one identifier after space\n  ([\\w\\[\\],$][\\w\\[\\],\\s]*)? # possibly primitive array or additional identifiers\n  \\s*(=|:|;)\n)",
+			"begin": "(?x)(?=\n  \\b\n  (\n    (void|boolean|byte|char|short|int|float|long|double)\n    |\n    (?>(\\w+\\.)*[A-Z_]+\\w*) # e.g. `javax.ws.rs.Response`, or `String`\n  )\n  \\b\n  \\s*\n  (\n    <[\\w<>,\\.\\s]*> # e.g. `HashMap<Integer, String>`, or `List<java.lang.String>`\n  )?\n  \\s+\n  [A-Za-z_$][\\w$]* # At least one identifier after space\n  ([\\w,$][\\w,\\s]*)? # possibly additional identifiers\n  \\s*(=|:|;)\n)",
 			"end": "(?=\\=|:|;)",
 			"name": "meta.definition.variable.choral",
 			"patterns": [
 				{
-					"match": "([A-Za-z$_][\\w$]*)(?=\\s*(\\[\\])*\\s*(;|:|=|,))",
+					"match": "([A-Za-z$_][\\w$]*)(?=\\s*(;|:|=|,))",
 					"captures": {
 						"1": {
 							"name": "variable.other.definition.choral"
@@ -1820,28 +1313,6 @@
 				},
 				{
 					"include": "#all-types"
-				},
-				{
-					"include": "#code"
-				}
-			]
-		},
-		"variables-local": {
-			"begin": "(?=\\b(var)\\b\\s+[A-Za-z_$][\\w$]*\\s*(=|:|;))",
-			"end": "(?=\\=|:|;)",
-			"name": "meta.definition.variable.local.choral",
-			"patterns": [
-				{
-					"match": "\\bvar\\b",
-					"name": "storage.type.local.choral"
-				},
-				{
-					"match": "([A-Za-z$_][\\w$]*)(?=\\s*(\\[\\])*\\s*(=|:|;))",
-					"captures": {
-						"1": {
-							"name": "variable.other.definition.choral"
-						}
-					}
 				},
 				{
 					"include": "#code"
