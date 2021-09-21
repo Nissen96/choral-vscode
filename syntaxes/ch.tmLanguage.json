@@ -381,6 +381,9 @@
 					"include": "#keywords"
 				},
 				{
+					"include": "#forward-chain"
+				},
+				{
 					"include": "#storage-modifiers"
 				},
 				{
@@ -661,6 +664,28 @@
 				}
 			]
 		},
+		"forward-chain": {
+			"name": "meta.forward-chain.choral",
+			"begin": "(?<=>\\s*>)",
+			"end": "(?=>\\s*>|;)",
+			"patterns": [
+				{
+					"include": "#method-reference"
+				},
+				{
+					"include": "#constants-and-special-vars"
+				},
+				{
+					"include": "#object-types"
+				},
+				{
+					"include": "#objects"
+				},
+				{
+					"include": "#properties"
+				}
+			]
+		},
 		"function-call": {
 			"begin": "([A-Za-z_$][\\w$]*)\\s*(@\\s*([\\w$]+|\\([\\w\\s$,]+\\))\\s*)?(\\()",
 			"beginCaptures": {
@@ -770,6 +795,10 @@
 					"name": "keyword.control.choral"
 				},
 				{
+					"match": "(>\\s*>)",
+					"name": "keyword.operator.chain.choral"
+				},
+				{
 					"match": "((&|\\|)=)",
 					"name": "keyword.operator.assignment.bitwise.choral"
 				},
@@ -819,7 +848,7 @@
 			]
 		},
 		"method-call": {
-			"begin": "(\\.)\\s*(<[\\w<>,\\.\\s]*>)?([A-Za-z_$][\\w$]*)\\s*(\\()",
+			"begin": "(\\.)\\s*(<[\\w<>,\\.\\s@&\\(\\)]*>)?\\s*([A-Za-z_$][\\w$]*)\\s*(\\()",
 			"beginCaptures": {
 				"1": {
 					"name": "punctuation.separator.period.choral"
@@ -848,6 +877,26 @@
 			"patterns": [
 				{
 					"include": "#code"
+				}
+			]
+		},
+		"method-reference": {
+			"name": "meta.method-reference.choral",
+			"begin": "::",
+			"beginCaptures": {
+				"name": "keyword.operator.method-reference.choral"
+			},
+			"end": "(?=>\\s*>|;)",
+			"patterns": [
+				{
+					"include": "#generics"
+				},
+				{
+					"include": "#new"
+				},
+				{
+					"match": "[A-Za-z_$][\\w$]*",
+					"name": "entity.name.function.choral"
 				}
 			]
 		},
@@ -1026,7 +1075,7 @@
 					}
 				},
 				{
-					"match": "\\b((?:[A-Za-z_]\\w*\\s*\\.\\s*)*[A-Z_]\\w*)\\s*(@\\s*([\\w$]+|\\([\\w\\s$,]+\\)))((?=\\s*[A-Za-z$_\\n])|(?=\\s*\\.\\.\\.))",
+					"match": "\\b((?:[A-Za-z_]\\w*\\s*\\.\\s*)*[A-Z_]\\w*)\\s*(@\\s*([\\w$]+|\\([\\w\\s$,]+\\)))((?=\\s+[A-Za-z$_\\n])|(?=\\s*\\.\\.\\.)|(?=\\s*::))",
 					"captures": {
 						"1": {
 							"patterns": [
