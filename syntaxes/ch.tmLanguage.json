@@ -33,10 +33,6 @@
 					"name": "invalid.illegal.character_not_allowed_here.choral"
 				},
 				{
-					"match": "[A-Z]+",
-					"name": "invalid.deprecated.package_name_not_lowercase.choral"
-				},
-				{
 					"match": "(?x)\\b(?<!\\$)\n(abstract|boolean|byte|case|catch|char|class|default|double|else|enum|extends|final|float|if|implements|import|int|\ninterface|long|new|package|private|protected|public|\nreturn|short|static|super|switch|this|try|void|\ntrue|false|null)\\b",
 					"name": "invalid.illegal.character_not_allowed_here.choral"
 				},
