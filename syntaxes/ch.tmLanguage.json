@@ -2,8 +2,9 @@
 	"name": "Choral",
 	"scopeName": "source.choral",
     "fileTypes": [
-        "ch"
-    ],
+		"ch",
+		"chh"
+	],
 	"patterns": [
 		{
 			"begin": "\\b(package)\\b\\s*",
