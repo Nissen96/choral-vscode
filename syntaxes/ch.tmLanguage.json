@@ -845,6 +845,44 @@
 			]
 		},
 		"method-call": {
+			"begin": "(\\.)\\s*(?=(<.*>)?\\s*[A-Za-z_$][\\w$]*\\s*\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.separator.period.choral"
+				}
+			},
+			"end": "\\)",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.parameters.end.bracket.round.choral"
+				}
+			},
+			"name": "meta.method-call.choral",
+			"patterns": [
+				{
+					"include": "#generics"
+				},
+				{
+					"begin": "([A-Za-z_$][\\w$]*)\\s*(\\()",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.function.choral"
+						},
+						"2": {
+							"name": "punctuation.definition.parameters.begin.bracket.round.choral"
+						}
+					},
+					"end": "(?=\\))",
+					"patterns": [
+						{
+							"include": "#code"
+						}
+					]
+				}
+			]
+		},
+
+		"method-call1": {
 			"begin": "(\\.)\\s*(<[\\w<>,\\.\\s@&\\(\\)]*>)?\\s*([A-Za-z_$][\\w$]*)\\s*(\\()",
 			"beginCaptures": {
 				"1": {
@@ -878,12 +916,12 @@
 			]
 		},
 		"method-reference": {
-			"name": "meta.method-reference.choral",
 			"begin": "::",
 			"beginCaptures": {
 				"name": "keyword.operator.method-reference.choral"
 			},
 			"end": "(?=>\\s*>|;)",
+			"name": "meta.method-reference.choral",
 			"patterns": [
 				{
 					"include": "#generics"
