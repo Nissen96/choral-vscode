@@ -33,11 +33,28 @@
                     ".ch"
                 ],
                 "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "chh",
+                "aliases": [
+                    "Choral Header",
+                    "choral header",
+                    "chh"
+                ],
+                "extensions": [
+                    ".chh"
+                ],
+                "configuration": "./language-configuration.json"
             }
         ],
         "grammars": [
             {
                 "language": "ch",
+                "scopeName": "source.choral",
+                "path": "./syntaxes/ch.tmLanguage.json"
+            },
+            {
+                "language": "chh",
                 "scopeName": "source.choral",
                 "path": "./syntaxes/ch.tmLanguage.json"
             }
