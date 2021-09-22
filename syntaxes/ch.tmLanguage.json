@@ -2,8 +2,9 @@
 	"name": "Choral",
 	"scopeName": "source.choral",
     "fileTypes": [
-        "ch"
-    ],
+		"ch",
+		"chh"
+	],
 	"patterns": [
 		{
 			"begin": "\\b(package)\\b\\s*",
@@ -31,10 +32,6 @@
 				{
 					"match": "(?<!_)_(?=\\s*(\\.|;))|\\b\\d+|-+",
 					"name": "invalid.illegal.character_not_allowed_here.choral"
-				},
-				{
-					"match": "[A-Z]+",
-					"name": "invalid.deprecated.package_name_not_lowercase.choral"
 				},
 				{
 					"match": "(?x)\\b(?<!\\$)\n(abstract|boolean|byte|case|catch|char|class|default|double|else|enum|extends|final|float|if|implements|import|int|\ninterface|long|new|package|private|protected|public|\nreturn|short|static|super|switch|this|try|void|\ntrue|false|null)\\b",
@@ -848,6 +845,44 @@
 			]
 		},
 		"method-call": {
+			"begin": "(\\.)\\s*(?=(<.*>)?\\s*[A-Za-z_$][\\w$]*\\s*\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.separator.period.choral"
+				}
+			},
+			"end": "\\)",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.parameters.end.bracket.round.choral"
+				}
+			},
+			"name": "meta.method-call.choral",
+			"patterns": [
+				{
+					"include": "#generics"
+				},
+				{
+					"begin": "([A-Za-z_$][\\w$]*)\\s*(\\()",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.function.choral"
+						},
+						"2": {
+							"name": "punctuation.definition.parameters.begin.bracket.round.choral"
+						}
+					},
+					"end": "(?=\\))",
+					"patterns": [
+						{
+							"include": "#code"
+						}
+					]
+				}
+			]
+		},
+
+		"method-call1": {
 			"begin": "(\\.)\\s*(<[\\w<>,\\.\\s@&\\(\\)]*>)?\\s*([A-Za-z_$][\\w$]*)\\s*(\\()",
 			"beginCaptures": {
 				"1": {
@@ -881,12 +916,12 @@
 			]
 		},
 		"method-reference": {
-			"name": "meta.method-reference.choral",
 			"begin": "::",
 			"beginCaptures": {
 				"name": "keyword.operator.method-reference.choral"
 			},
 			"end": "(?=>\\s*>|;)",
+			"name": "meta.method-reference.choral",
 			"patterns": [
 				{
 					"include": "#generics"
@@ -1341,78 +1376,76 @@
 		"strings": {
 			"patterns": [
 				{
-					"match": "(\".*\")\\s*(@\\s*[\\w$]+)",
-					"captures": {
+					"begin": "(?=\")",
+					"end": "(?<=\")\\s*(@\\s*[\\w$]+)",
+					"endCaptures": {
 						"1": {
-							"patterns": [
-								{
-									"begin": "\"",
-									"beginCaptures": {
-										"0": {
-											"name": "punctuation.definition.string.begin.choral"
-										}
-									},
-									"end": "\"",
-									"endCaptures": {
-										"0": {
-											"name": "punctuation.definition.string.end.choral"
-										}
-									},
-									"name": "string.quoted.double.choral",
-									"patterns": [
-										{
-											"match": "\\\\.",
-											"name": "constant.character.escape.choral"
-										}
-									]
-								}
-							]
-						},
-						"2": {
 							"patterns": [
 								{
 									"include": "#role"
 								}
 							]
 						}
-					}
+					},
+					"patterns": [
+						{
+							"begin": "\"",
+							"beginCaptures": {
+								"0": {
+									"name": "punctuation.definition.string.begin.choral"
+								}
+							},
+							"end": "\"",
+							"endCaptures": {
+								"0": {
+									"name": "punctuation.definition.string.end.choral"
+								}
+							},
+							"name": "string.quoted.double.choral",
+							"patterns": [
+								{
+									"match": "\\\\.",
+									"name": "constant.character.escape.choral"
+								}
+							]
+						}
+					]
 				},
 				{
-					"match": "('.*')\\s*(@\\s*[\\w$]+)",
-					"captures": {
+					"begin": "(?=')",
+					"end": "(?<=')\\s*(@\\s*[\\w$]+)",
+					"endCaptures": {
 						"1": {
-							"patterns": [
-								{
-									"begin": "'",
-									"beginCaptures": {
-										"0": {
-											"name": "punctuation.definition.string.begin.choral"
-										}
-									},
-									"end": "(')\\s*(@\\s*[\\w$]+)",
-									"endCaptures": {
-										"0": {
-											"name": "punctuation.definition.string.end.choral"
-										}
-									},
-									"name": "string.quoted.single.choral",
-									"patterns": [
-										{
-											"match": "\\\\.",
-											"name": "constant.character.escape.choral"
-										}
-									]
-								}
-							]
-						},
-						"2": {
 							"patterns": [
 								{
 									"include": "#role"
 								}
 							]
 						}
-					}
+					},
+					"patterns": [
+						{
+							"begin": "'",
+							"beginCaptures": {
+								"0": {
+									"name": "punctuation.definition.string.begin.choral"
+								}
+							},
+							"end": "'",
+							"endCaptures": {
+								"0": {
+									"name": "punctuation.definition.string.end.choral"
+								}
+							},
+							"name": "string.quoted.single.choral",
+							"patterns": [
+								{
+									"match": "\\\\.",
+									"name": "constant.character.escape.choral"
+								}
+							]
+						}
+					]
 				}
 			]
 		},
